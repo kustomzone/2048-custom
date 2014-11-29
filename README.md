@@ -2,3 +2,5 @@
 ===========
 
 Initial Cleanup of Clone
+
+Demo: http://kustomzone.github.io/2048-custom/

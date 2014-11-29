@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+  
+  <!-- p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p -->
+  <!-- link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" -->
+  <!-- link rel="apple-touch-icon" href="http://gabrielecirulli.github.io/2048/meta/apple-touch-icon.png" -->
+  <!-- meta property="og:image" content="http://gabrielecirulli.github.io/2048/meta/og_image.png" -->
+  
+  <!-- link rel="stylesheet" href="data:text/css,%3Avisited%20%7Bcolor%3A%23%20%21important%3B%7D%3Avisited%3Ahover%7Bcolor%3A%23%20%21important%3B%7D" -->
+	
+<html lang="en" manifest="cache.appcache">
+
+ <head>
+  
+  <title>2048</title>
+	
+	<link href="./2048_files/2048.ico"  rel="shortcut icon" >
+	<link href="./2048_files/main.css"  rel="stylesheet" type="text/css">
+	<link href="./2048_files/ai.css"    rel="stylesheet" type="text/css">
+	<link href="./2048_files/tiles.css" rel="stylesheet" type="text/css">
+
+	
+	
+	<style id="blockFontSize" type="text/css">.tile{font-size: 54px !important;}</style>
+	<style id="fontColor" type="text/css">.tile {color: #776e65 !important;}</style>
+	<style>.tile {box-shadow: none !important;}</style>
+	
+	<script src="./2048_files/jquery-1.10.2.js"></script>
+	<script src="./2048_files/jquery-ui.js"></script>
+	
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="format-detection" content="telephone=no">
+  
+  <meta property="og:title" content="2048 clone">
+  <meta property="og:site_name" content="2048 clone">
+  <meta property="og:description" content="2048 clone">
+  
+ </head>
+
+<body>
+  
+  <div class="container">
+    <div class="heading">
+	  
+      <br><!-- h3 class="title"></h3 -->
+	  
+      <div class="scores-container">
+        <div class="score-container">0<div class="score-addition">+0</div></div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+	
+	  <!-- temp -->
+	  <p class="pending"><i><b>Todo - save board zoom size.</b></i></p>
+	  <!-- /temp -->
+	
+	<!-- paused -->
+	<div class="controls">
+      <div id="hint-button-container">
+        <!-- button id="hint-button" class="ai-button">Hint</button -->
+      </div>
+	  
+      <div id="feedback-container"> </div>
+	  
+      <div id="run-button-container">
+        <button id="run-button" class="ai-button" style="display:none">Auto-run</button>
+      </div>
+    </div>
+	<!-- /paused -->
+	
+		<!-- Spawn / Editor -->
+		
+		<!-- paused/ --!
+		<button class="ai-button" style="font-size: 60%" onclick="$(&#39;.game-container&#39;).blur();$(&#39;#blockSpawn&#39;).toggle()">Spawn</button>
+		<form id="form2" method="post" action="" onsubmit="spawnInput();manager.listen();return false;">
+		<div id="blockSpawn" style="display: none">
+		x location (optional): <input name="row" id="rowInput" type="number" onkeydown="setTimeout(function(){if($(&#39;#rowInput&#39;)[0].value.length&gt;0 &amp;&amp; $(&#39;#colInput&#39;)[0].value.length&gt;0){$(&#39;#highVal, #lowVal&#39;).attr(&#39;disabled&#39;,&#39;disabled&#39;)}else{$(&#39;#highVal, #lowVal&#39;).removeAttr(&#39;disabled&#39;)}},50);" placeholder="1"><br>
+		y location (optional): <input name="col" id="colInput" type="number" onkeydown="setTimeout(function(){if($(&#39;#colInput&#39;)[0].value.length&gt;0 &amp;&amp; $(&#39;#rowInput&#39;)[0].value.length&gt;0){$(&#39;#randLoc&#39;).attr(&#39;disabled&#39;,&#39;disabled&#39;)}else{$(&#39;#randLoc&#39;).removeAttr(&#39;disabled&#39;)}},50);" placeholder="1"><br>
+		random location? <input name="randLoc" id="randLoc" type="checkbox" checked=""><br>
+		value (optional): <input name="spawnVal" id="optionValue" type="text" onkeydown="setTimeout(function(){if($(&#39;#optionValue&#39;)[0].value.length&gt;0){$(&#39;#highVal, #lowVal&#39;).attr(&#39;disabled&#39;,&#39;disabled&#39;)}else{$(&#39;#highVal, #lowVal&#39;).removeAttr(&#39;disabled&#39;)}},50);"><br>
+		random value between: (<span id="sliderVal1">2</span>,<span id="sliderVal2">2</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min: <input name="sliderLow" id="lowVal" type="range" value="1" min="1" max="1" step="1" onchange="$(&#39;#sliderVal1&#39;)[0].innerHTML=Math.pow(2,this.value);$(&#39;#highVal&#39;)[0].min=this.value"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max: <input type="range" name="sliderHigh" id="highVal" value="1" min="1" max="12" step="1" onchange="$(&#39;#sliderVal2&#39;)[0].innerHTML=Math.pow(2,this.value);$(&#39;#lowVal&#39;)[0].max=this.value"><br>
+		<button type="button" style="font-size:80%" onclick="generatePerfectBoard();manager.listen()">Generate a 'perfect' board</button><br>
+		<button style="font-size: 100%">Spawn!</button>
+		</div>
+		</form>
+		<div id="spawn-button-container"></div>
+		/paused -->
+	
+    <div class="above-game">
+      <a class="restart-button">New Game</a>
+    </div>
+	
+	<!--<div class="draggable" style="background: blue; position: absolute; left: 652px; top: 212px;">test text area</div>-->
+	<!-- div style="text-align:left">Delete: <input type="checkbox" style="font-size:125%" onclick="removeOnClick=!removeOnClick;deleteOnClick()"></div -->
+	
+    <div style="text-align:left">Zoom: <input id="zoomSlider" style="width: 90px; height: 20px;" type="range" min="0.5" max="1" step="0.05" value="0.60" onchange="document.getElementsByClassName(&#39;game-container&#39;)[0].style.zoom=this.value; $(&#39;.game-container&#39;)[0].style.marginLeft=-calcOffSet()"></div>
+	<div style="text-align:left">Nothing: <input style="width: 90px; height: 20px;" value="40" type="range" min="25" max="75" step="1" onchange="$(&#39;#blockFontSize&#39;)[0].innerHTML=&#39; .tile{font-size: &#39;+this.value+&#39;px !important;}&#39;"></div>
+	
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Keep going</a>
+          <a class="retry-button">Try again</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+	
+	<!-- Saved Position -->
+      <div class="tile-container">
+	  <div class="tile tile-8 tile-position-2-1 tile-new">
+	  <div class="tile-inner">8</div></div>
+	  <div class="tile tile-512 tile-position-2-2 tile-new">
+	  <div class="tile-inner">512</div></div><div class="tile tile-2 tile-position-2-4 tile-new">
+	  <div class="tile-inner">2</div></div>
+	  <div class="tile tile-1024 tile-position-3-1 tile-new">
+	  <div class="tile-inner">1024</div></div>
+	  <div class="tile tile-16 tile-position-3-2 tile-new">
+	  <div class="tile-inner">16</div></div>
+	  <div class="tile tile-8 tile-position-3-3 tile-new">
+	  <div class="tile-inner">8</div></div>
+	  <div class="tile tile-2 tile-position-4-1 tile-new">
+	  <div class="tile-inner">2</div></div>
+	  <div class="tile tile-128 tile-position-4-2 tile-new">
+	  <div class="tile-inner">128</div></div>
+	  <div class="tile tile-2 tile-position-4-3 tile-new">
+	  <div class="tile-inner">2</div></div>
+	  <div class="tile tile-2 tile-position-4-4 tile-new">
+	  <div class="tile-inner">2</div></div></div>
+    
+	</div>
+    </div>
+  </div>
+
+  <!-- include -->
+  <script src="./2048_files/hacks.js"></script>
+  
+  <script src="./2048_files/bind_polyfill.js">			</script>
+  <script src="./2048_files/classlist_polyfill.js">		</script>
+  <script src="./2048_files/animframe_polyfill.js">		</script>
+  <script src="./2048_files/keyboard_input_manager.js">	</script>
+  <script src="./2048_files/html_actuator.js">			</script>
+  <script src="./2048_files/grid.js">					</script>
+  <script src="./2048_files/tile.js">					</script>
+  <script src="./2048_files/local_storage_manager.js">	</script>
+  <script src="./2048_files/game_manager.js">			</script>
+  <script src="./2048_files/application.js">			</script>
+  <script src="./2048_files/hammer.min.js">				</script>
+  <script src="./2048_files/ai.js">						</script>
+  
+  <!------------>
+
+</body></html>
+
+

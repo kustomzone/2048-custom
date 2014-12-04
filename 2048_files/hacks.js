@@ -1,7 +1,9 @@
 
-// To Do - Save Board Size..
+// To Do - Spawn New Tiles
+//       - Autoplay
+//       - 
  
- //
+ // Done - Save Zoom Setting
  
 //Init variables for cookies
 

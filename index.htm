@@ -11,17 +11,16 @@
 
  <head>
   
-  <title>2048</title>
+  <title>4096</title>
 	
 	<link href="./2048_files/2048.ico"  rel="shortcut icon" >
 	<link href="./2048_files/main.css"  rel="stylesheet" type="text/css">
 	<link href="./2048_files/ai.css"    rel="stylesheet" type="text/css">
 	<link href="./2048_files/tiles.css" rel="stylesheet" type="text/css">
-
 	
 	
-	<style id="blockFontSize" type="text/css">.tile{font-size: 54px !important;}</style>
-	<style id="fontColor" type="text/css">.tile {color: #776e65 !important;}</style>
+	<!-- style id="blockFontSize" type="text/css">.tile{font-size: 54px !important;}</style -->
+	<!-- style id="fontColor" type="text/css">.tile {color: #776e65 !important;}</style -->
 	<style>.tile {box-shadow: none !important;}</style>
 	
 	<script src="./2048_files/jquery-1.10.2.js"></script>
@@ -56,8 +55,29 @@
     </div>
 	
 	  <!-- temp -->
-	  <p class="pending"><i><b>Todo - spawn new tiles<br>
-	  Done - save zoom setting</b></i></p>
+	  <div id="temp">
+		<table align="top"><tr><td>
+		  <p class="pending">
+		   <b><i><u>To-do list</u></i></b> <br>
+		  </p>
+		  <p class="pending" style="color:#FFAA77; font-size:0.5em;">
+			- nothing button (???) <br>
+			- show current board position (echo json?) <br>
+			- save position (local store) <br>
+			- show last board position (history) <br>
+			- add/edit mode for new tiles (drag & drop) <br>
+			- saved game menu (select solvable puzzles) <br>
+		  </p>
+		</td><td>
+		 <p class="pending">
+		  <b><i><u>Done</u></i></b> <br>
+			-  <s>save zoom setting </s> <br>
+		 <br>
+		</p>
+		</td></tr></table>
+		
+	   
+	  </div>
 	  <!-- /temp -->
 	
 	<!-- paused -->
